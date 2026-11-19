@@ -15,4 +15,4 @@ def add_to_total(total, value):
 
 
 def broken_total():
-    return missing_total
+    return add_to_total(12, 8)

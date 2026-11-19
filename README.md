@@ -2,6 +2,10 @@
 
 Ali Alyaseri | [AliAlya/ECE444-PRA7](https://github.com/AliAlya/ECE444-PRA7)
 
+**[Download/view the final submission PDF](output/pdf/Ali_Alyaseri_PRA7_Report.pdf)** | **[Download the project ZIP](https://github.com/AliAlya/ECE444-PRA7/archive/refs/heads/main.zip)**
+
+The PDF, all 14 screenshots, report source, evidence records, and project code are saved in this repository. I can retrieve them from GitHub without access to the original computer. Use GitHub's download button when viewing the PDF, then upload that file to Quercus.
+
 This practical uses a small calculator to follow a mistake through a manual Ruff check, a local Git hook, and a GitHub pull request. The interesting result is that the original two tests can pass while Ruff still identifies a problem. Each check sees a different part of the code.
 
 Based on the [PRA7 handout](https://shuruizuoft.github.io/ECE444-Fall2026/pras/static-analysis-ci.html) and forked from the [course starter](https://github.com/shuruizUofT/ece444-pra7-starter). The supplied Ruff configuration and tool versions are preserved.
@@ -10,19 +14,18 @@ Based on the [PRA7 handout](https://shuruizuoft.github.io/ECE444-Fall2026/pras/s
 
 **What this project is:** a Python calculator module, tests, and automated code checks. The practical is about finding and repairing mistakes. There is no server to start. Running `calculator.py` on its own defines its functions and normally prints nothing.
 
-**Where my finished work is:** the `demonstrate-ruff` branch in [PR #1](https://github.com/AliAlya/ECE444-PRA7/pull/1). The PR is open for review. `main` contains the earlier working baseline, so I should use `demonstrate-ruff` when showing the final code and six tests.
+**Where my finished work is:** `main`, with the full demonstration history in [PR #1](https://github.com/AliAlya/ECE444-PRA7/pull/1). The `demonstrate-ruff` branch is retained for the historical evidence links. A normal clone checks out the completed project on `main`.
 
 **My quick run in PowerShell:**
 
 ```powershell
-Set-Location -LiteralPath 'C:\Users\Ali A\Downloads\ECE444\PRA7'
 git branch --show-current
 .\.venv\Scripts\python.exe -m pytest -q
 .\.venv\Scripts\python.exe -m ruff check .
 .\.venv\Scripts\python.exe -m ruff format --check .
 ```
 
-The branch should be `demonstrate-ruff`. Expect **6 passed**, **All checks passed!**, and a message that the files are already formatted. If I am on another branch and have no uncommitted work, `git switch demonstrate-ruff` selects the final version.
+Run these from the cloned project folder after completing the setup below. The branch should be `main`. Expect **6 passed**, **All checks passed!**, and a message that the files are already formatted. The preserved `demonstrate-ruff` branch also contains the completed work.
 
 **What I should be ready to show the TA:**
 
@@ -38,6 +41,35 @@ The handout explicitly asks me to be prepared for an oral test on my additional 
 
 For the details, use [the TA walkthrough](#my-walkthrough-for-the-ta), [Windows commands](#run-it-on-my-windows-computer), [the ten report items](#what-goes-in-the-pdf-and-how-i-finish-it), and [questions with answers](#questions-i-might-get-from-the-ta).
 
+## Using another computer
+
+To retrieve the submission, I only need the PDF link at the top of this README. To run the code, install Git and Python 3.15, then clone the repository. On Windows, the Python launcher should recognize `py -3.15`.
+
+```powershell
+git clone https://github.com/AliAlya/ECE444-PRA7.git
+Set-Location ECE444-PRA7
+py -3.15 -m venv .venv
+.\.venv\Scripts\python.exe -m pip install -r requirements-dev.txt
+.\.venv\Scripts\python.exe -m pre_commit install
+.\.venv\Scripts\python.exe -m pytest -q
+.\.venv\Scripts\python.exe -m ruff check .
+.\.venv\Scripts\python.exe -m ruff format --check .
+```
+
+The local run used Python 3.15.2. If `py -3.15` is unavailable, install Python 3.15 first; the old computer's `.tools/python315` directory is not part of the repository. Virtual environments are recreated rather than copied between machines.
+
+On macOS/Linux, create the environment with `python3.15 -m venv .venv`, then use `.venv/bin/python` in place of `.\.venv\Scripts\python.exe` in the commands above.
+
+To rebuild the PDF on the new Windows computer, use a separate report environment:
+
+```powershell
+py -3.15 -m venv .report-venv
+.\.report-venv\Scripts\python.exe -m pip install -r requirements-report.txt
+.\.report-venv\Scripts\python.exe tools/build_report.py
+```
+
+The existing screenshots and records are included, so rebuilding does not require retaking them or signing into GitHub. Clone with Git if I want to use the replay helper: it reads the original starter tests from Git history, which is absent from a downloaded ZIP.
+
 ## Verified result
 
 | Stage | Result and evidence |
@@ -46,7 +78,7 @@ For the details, use [the TA walkthrough](#my-walkthrough-for-the-ta), [Windows 
 | Intentional defect | F821 failed lint; formatting and the two starter tests passed: [failed run](https://github.com/AliAlya/ECE444-PRA7/actions/runs/44466075166). GitHub reported the PR merge state as `BLOCKED`. |
 | Repair | All three jobs passed: [repaired run](https://github.com/AliAlya/ECE444-PRA7/actions/runs/44466570039). The same PR became `CLEAN`. |
 | Branch protection | [require-ci-on-main](https://github.com/AliAlya/ECE444-PRA7/rules/27612614) is active; its bypass list is empty and all three checks are required. |
-| Pull request | [PR #1](https://github.com/AliAlya/ECE444-PRA7/pull/1), from my `demonstrate-ruff` branch into my own fork's `main`. Left open so the TA can review the demonstration and repaired checks together. |
+| Pull request | [PR #1](https://github.com/AliAlya/ECE444-PRA7/pull/1) preserves the failed and repaired checks; completed work is merged into `main` for access from another computer. The earlier screenshots show the PR before merging. |
 | Local final code | Ruff lint and formatting pass. **6 tests pass**, including four regression tests added after the failure demonstration. |
 
 **Submission status:** the code, GitHub demonstration, and report images are complete. The [numbered report](REPORT.md) includes 14 screenshots. GitHub summaries and ruleset pages were captured directly; local code/output and the failed CI log were captured from browser views of the original saved records. Those images are labeled as saved records, not live terminal or signed-in log-panel captures. See [screenshot provenance](evidence/screenshots/README.md). Quercus upload and the TA explanation remain personal steps.
@@ -149,10 +181,10 @@ The repaired `broken_total` calls `add_to_total(12, 8)`. Its name remains the on
 
 ## Run it on my Windows computer
 
-Open the PRA7 folder in VS Code and use its PowerShell terminal, or open a regular PowerShell window. First enter the project folder:
+Open the cloned project folder in VS Code and use its PowerShell terminal, or enter that folder in a regular PowerShell window. For example, if I cloned into the current directory:
 
 ```powershell
-Set-Location -LiteralPath 'C:\Users\Ali A\Downloads\ECE444\PRA7'
+Set-Location ECE444-PRA7
 ```
 
 Use the environment's executable directly. Activation and PowerShell execution-policy changes are unnecessary.
@@ -215,7 +247,7 @@ To show the individual tests and their names:
 | --- | --- |
 | `.venv\Scripts\python.exe` cannot be found | Run from the PRA7 folder. If the environment is missing, use the recreation commands above. |
 | `No module named pytest`, `ruff`, or `pre_commit` | Use this project's `.venv` executable and install `requirements-dev.txt` into that environment. |
-| Only 2 tests run | Check the branch. The earlier main-branch baseline has the two starter tests; the completed PR branch has six. |
+| Only 2 tests run | I may be viewing an older baseline commit. Fetch/pull the completed `main` branch; the final project has six tests. |
 | A replay reports lint errors or a rejected commit | That is expected for the failing stages. The helper checks that the failure happened and keeps it in a separate scratch folder. |
 | A hook reformats a file | Review the change, stage it again, and retry. A modifying hook intentionally asks for another pass. |
 
@@ -272,7 +304,7 @@ Open the [failed lint job](https://github.com/AliAlya/ECE444-PRA7/actions/runs/4
 
 Then show the active `require-ci-on-main` ruleset: default branch target, required PR, zero approvals, required `lint`/`format`/`tests`, and an empty bypass list. Explain that the saved failed PR state was `BLOCKED`; a red check becomes a merge requirement through this ruleset.
 
-Finish on [the same repaired PR](https://github.com/AliAlya/ECE444-PRA7/pull/1), with all three checks passing. Show the repaired function and its new regression test. Keep the PR open for review unless the TA asks for a merge; merging is not explicitly required by this handout.
+Finish on [the same repaired PR](https://github.com/AliAlya/ECE444-PRA7/pull/1), with all three checks passing. Show the repaired function and its new regression test. The PR is merged so the completed work is available on `main`; its original failed runs, repaired runs, commits, and pre-merge screenshots remain available for review.
 
 ## What goes in the PDF and how I finish it
 
@@ -297,7 +329,7 @@ The screenshots are saved in `evidence/screenshots/`. The [capture checklist](ev
 
 The builder updates `REPORT.md` and writes the PDF to `output/pdf/`. While mandatory screenshot groups are missing, it produces `Ali_Alyaseri_PRA7_Report_DRAFT.pdf`. When all required groups are supplied, it produces `Ali_Alyaseri_PRA7_Report.pdf`. The presence of an image does not establish that it shows the right content: I still need to open the PDF, check legibility and completeness, and upload the final version through Quercus.
 
-The PDF in `output/pdf/`, the virtual environments, and scratch replays are local files excluded from Git. The code, report source, evidence records, and this README are on the PR branch. Check Quercus for the deadline and any additional submission-field instructions; the handout does not provide a deadline or required PDF filename.
+The final `output/pdf/Ali_Alyaseri_PRA7_Report.pdf` is committed to Git along with the code, screenshots, source sheets, report source, and evidence records. Virtual environments, portable Python, draft PDFs, rendering previews, and scratch replays remain excluded. Check Quercus for the deadline and any additional submission-field instructions; the handout does not provide a deadline or required PDF filename.
 
 ## How the checks fit together
 

@@ -35,7 +35,7 @@ The replay helper performs the actual commands in a new ignored scratch folder. 
 
 Item 7 creates a separate local Git repository with the original two tests and installs the hook there. The commit attempt genuinely fails. Keep `SKIP` unset when running it. First-time hook setup may need internet access. These captures are replays of the same source states; the original timestamped records remain available separately.
 
-The current `demonstrate-ruff` branch contains the repaired code. Do not overwrite it or force-push an older commit merely to recreate screenshots.
+The completed `main` branch and preserved `demonstrate-ruff` branch contain the repaired code. Do not overwrite them or force-push an older commit merely to recreate screenshots.
 
 The JSON records include the calculator source for each stage. To rerun a stage, make a separate scratch copy of the project outside the final working tree (or under ignored `.tools/replay/`), copy the matching calculator snapshot there, and run the indicated command with the existing `.venv` interpreter. The original two starter tests can be inspected with `git show 98efd77:test_calculator.py`. A separate Git clone is needed to demonstrate an actual rejected commit without changing this completed branch.
 

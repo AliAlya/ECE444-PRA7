@@ -409,7 +409,7 @@ I repaired broken_total to return add_to_total(12, 8), which evaluates to 20, th
 
 After capturing the two-test failure demonstration, I added four regression tests: independent default histories, preservation of a supplied empty history list, updating an existing total, and calling the repaired function. The final suite has six passing tests.
 
-I left PR #1 open for TA review. The handout requires a repaired passing PR and does not explicitly require merging it. Quercus upload and the oral explanation remain personal submission steps.
+The screenshots preserve the repaired PR before merging. The completed project and this PDF are now saved on main for access from another computer; PR #1 retains the demonstration history. Quercus upload and the oral explanation remain personal submission steps.
 
 [Repaired PR](https://github.com/AliAlya/ECE444-PRA7/pull/1)
 

@@ -1,0 +1,18 @@
+> git commit -m "Show that the hook catches an undefined total"
+
+ruff check...............................................................Failed
+- hook id: ruff-check
+- exit code: 1
+
+F821 Undefined name `missing_total`
+  --> calculator.py:18:12
+   |
+17 | def broken_total():
+18 |     return missing_total
+   |            ^^^^^^^^^^^^^
+
+Found 1 error.
+
+ruff format..............................................................Passed
+
+Exit code: 1

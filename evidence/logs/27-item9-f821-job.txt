@@ -1,0 +1,13 @@
+﻿lint	Run python -m ruff check --output-format=github .	﻿2026-11-19T05:34:37.6322754Z ##[group]Run python -m ruff check --output-format=github .
+lint	Run python -m ruff check --output-format=github .	2026-11-19T05:34:37.6323221Z ^[[36;1mpython -m ruff check --output-format=github .^[[0m
+lint	Run python -m ruff check --output-format=github .	2026-11-19T05:34:37.6341967Z shell: /usr/bin/bash -e {0}
+lint	Run python -m ruff check --output-format=github .	2026-11-19T05:34:37.6342263Z env:
+lint	Run python -m ruff check --output-format=github .	2026-11-19T05:34:37.6342554Z   pythonLocation: /opt/hostedtoolcache/Python/3.15.2/x64
+lint	Run python -m ruff check --output-format=github .	2026-11-19T05:34:37.6342927Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.15.2/x64/lib/pkgconfig
+lint	Run python -m ruff check --output-format=github .	2026-11-19T05:34:37.6343419Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.15.2/x64
+lint	Run python -m ruff check --output-format=github .	2026-11-19T05:34:37.6343769Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.15.2/x64
+lint	Run python -m ruff check --output-format=github .	2026-11-19T05:34:37.6344117Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.15.2/x64
+lint	Run python -m ruff check --output-format=github .	2026-11-19T05:34:37.6344453Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.15.2/x64/lib
+lint	Run python -m ruff check --output-format=github .	2026-11-19T05:34:37.6344767Z ##[endgroup]
+lint	Run python -m ruff check --output-format=github .	2026-11-19T05:34:37.6609483Z ##[error]calculator.py:18:12: F821 Undefined name `missing_total`
+lint	Run python -m ruff check --output-format=github .	2026-11-19T05:34:37.6616235Z ##[error]Process completed with exit code 1.

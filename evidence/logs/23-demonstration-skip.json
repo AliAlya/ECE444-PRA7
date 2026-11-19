@@ -1,0 +1,7 @@
+{
+  "time": "2026-11-19T05:34:10.840243+00:00",
+  "command": "git commit -m \"Let CI catch the undefined total\"",
+  "exit_code": 0,
+  "output": "ruff check..............................................................Skipped\nruff format..............................................................Passed\n[demonstrate-ruff 95a963e] Let CI catch the undefined total\n 11 files changed, 75 insertions(+)\n create mode 100644 evidence/logs/17-ruleset-saved.json\n create mode 100644 evidence/logs/18-baseline-ci.json\n create mode 100644 evidence/logs/19-item7-format.json\n create mode 100644 evidence/logs/19-item7-format.txt\n create mode 100644 evidence/logs/20-item7-f821.json\n create mode 100644 evidence/logs/20-item7-f821.txt\n create mode 100644 evidence/logs/21-item7-tests.json\n create mode 100644 evidence/logs/21-item7-tests.txt\n create mode 100644 evidence/logs/22-item7-rejected-commit.json\n create mode 100644 evidence/logs/22-item7-rejected-commit.txt\n",
+  "calculator": "def add(a, b):\n    return a + b\n\n\ndef record(value, history=None):\n    if history is None:\n        history = []\n    history.append(value)\n    return history\n\n\ndef add_to_total(total, value):\n    total = add(total, value)\n    return total\n\n\ndef broken_total():\n    return missing_total\n"
+}

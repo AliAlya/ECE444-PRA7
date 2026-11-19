@@ -1,0 +1,12 @@
+> .venv/Scripts/python.exe -m ruff check .
+
+F821 Undefined name `missing_total`
+  --> calculator.py:18:12
+   |
+17 | def broken_total():
+18 |     return missing_total
+   |            ^^^^^^^^^^^^^
+
+Found 1 error.
+
+Exit code: 1

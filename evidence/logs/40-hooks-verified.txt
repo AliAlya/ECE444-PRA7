@@ -1,0 +1,6 @@
+> .venv/Scripts/python.exe -m pre_commit run --all-files
+
+ruff check...............................................................Passed
+ruff format..............................................................Passed
+
+Exit code: 0

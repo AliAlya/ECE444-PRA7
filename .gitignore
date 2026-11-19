@@ -2,3 +2,8 @@
 __pycache__/
 .pytest_cache/
 .ruff_cache/
+.tools/
+.report-venv/
+.pre-commit-cache/
+tmp/
+output/

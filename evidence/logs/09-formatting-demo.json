@@ -1,0 +1,7 @@
+{
+  "time": "2026-11-19T05:28:52.540852+00:00",
+  "command": ".venv/Scripts/python.exe -m ruff format calculator.py",
+  "exit_code": 0,
+  "output": "1 file reformatted\n",
+  "calculator": "def add(a, b):\n    return a + b\n\n\ndef record(value, history=None):\n    if history is None:\n        history = []\n    history.append(value)\n    return history\n"
+}

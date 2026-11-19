@@ -1,0 +1,5 @@
+> .venv/Scripts/python.exe -m ruff format --check .
+
+4 files already formatted
+
+Exit code: 0

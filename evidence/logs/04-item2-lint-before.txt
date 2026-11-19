@@ -1,0 +1,52 @@
+> .venv/Scripts/python.exe -m ruff check calculator.py
+
+F401 [*] `os` imported but unused
+ --> calculator.py:1:8
+  |
+1 | import os
+  |        ^^
+help: Remove unused import: `os`
+  |
+  - import os
+1 |
+  |
+
+F841 Local variable `unused` is assigned to but never used
+ --> calculator.py:5:5
+  |
+4 | def add(a,b):
+5 |     unused = 123
+  |     ^^^^^^
+6 |     return a + b
+  |
+help: Remove assignment to unused variable `unused`
+  |
+4 | def add(a,b):
+  -     unused = 123
+5 |     return a + b
+  |
+note: This is an unsafe fix and may change runtime behavior
+
+B006 Do not use mutable data structures for argument defaults
+  --> calculator.py:9:27
+   |
+ 9 | def record(value, history=[]):
+   |                           ^^
+10 |     history.append(value)
+11 |     return history
+   |
+help: Replace with `None`; initialize within function
+   |
+8  |
+   - def record(value, history=[]):
+9  + def record(value, history=None):
+10 +     if history is None:
+11 +         history = []
+12 |     history.append(value)
+   |
+note: This is an unsafe fix and may change runtime behavior
+
+Found 3 errors.
+[*] 1 fixable with `--fix` (2 unsafe fixes available with `--fix --unsafe-fixes`).
+
+Exit code: 1

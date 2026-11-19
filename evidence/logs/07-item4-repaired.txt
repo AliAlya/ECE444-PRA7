@@ -1,0 +1,5 @@
+> .venv/Scripts/python.exe -m ruff check calculator.py
+
+All checks passed!
+
+Exit code: 0

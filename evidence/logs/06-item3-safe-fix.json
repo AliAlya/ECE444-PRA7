@@ -1,0 +1,7 @@
+{
+  "time": "2026-11-19T05:28:20.492147+00:00",
+  "command": ".venv/Scripts/python.exe -m ruff check --fix calculator.py",
+  "exit_code": 1,
+  "output": "F841 Local variable `unused` is assigned to but never used\n --> calculator.py:4:5\n  |\n3 | def add(a,b):\n4 |     unused = 123\n  |     ^^^^^^\n5 |     return a + b\n  |\nhelp: Remove assignment to unused variable `unused`\n  |\n3 | def add(a,b):\n  -     unused = 123\n4 |     return a + b\n  |\nnote: This is an unsafe fix and may change runtime behavior\n\nB006 Do not use mutable data structures for argument defaults\n  --> calculator.py:8:27\n   |\n 8 | def record(value, history=[]):\n   |                           ^^\n 9 |     history.append(value)\n10 |     return history\n   |\nhelp: Replace with `None`; initialize within function\n   |\n7  |\n   - def record(value, history=[]):\n8  + def record(value, history=None):\n9  +     if history is None:\n10 +         history = []\n11 |     history.append(value)\n   |\nnote: This is an unsafe fix and may change runtime behavior\n\nFound 3 errors (1 fixed, 2 remaining).\n2 unsafe fixes available with `--fix --unsafe-fixes`.\n",
+  "calculator": "\n\ndef add(a,b):\n    unused = 123\n    return a + b\n\n\ndef record(value, history=[]):\n    history.append(value)\n    return history\n"
+}

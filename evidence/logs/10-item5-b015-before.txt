@@ -1,0 +1,14 @@
+> .venv/Scripts/python.exe -m ruff check calculator.py
+
+B015 Pointless comparison. Did you mean to assign a value? Otherwise, prepend `assert` or remove it.
+  --> calculator.py:13:5
+   |
+12 | def add_to_total(total, value):
+13 |     total == add(total, value)
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^
+14 |     return total
+   |
+
+Found 1 error.
+
+Exit code: 1

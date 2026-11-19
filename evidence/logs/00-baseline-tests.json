@@ -1,0 +1,7 @@
+{
+  "time": "2026-11-19T05:22:38.383401+00:00",
+  "command": ".venv/Scripts/python.exe -m pytest -q",
+  "exit_code": 0,
+  "output": "..                                                                       [100%]\n============================== warnings summary ===============================\n.venv\\Lib\\site-packages\\_pytest\\cacheprovider.py:487\n  C:\\Users\\Ali A\\Downloads\\ECE444\\PRA7\\.venv\\Lib\\site-packages\\_pytest\\cacheprovider.py:487: PytestCacheWarning: could not create cache path C:\\Users\\Ali A\\Downloads\\ECE444\\PRA7\\.pytest_cache\\v\\cache\\nodeids: [WinError 183] Cannot create a file when that file already exists: 'C:\\\\Users\\\\Ali A\\\\Downloads\\\\ECE444\\\\PRA7\\\\.pytest_cache\\\\v\\\\cache'\n    config.cache.set(\"cache/nodeids\", sorted(str(n) for n in self.cached_nodeids))\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n2 passed, 1 warning in 0.01s\n",
+  "calculator": "def add(a, b):\n    return a + b\n"
+}

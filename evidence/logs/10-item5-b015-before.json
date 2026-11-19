@@ -1,0 +1,7 @@
+{
+  "time": "2026-11-19T05:29:03.591858+00:00",
+  "command": ".venv/Scripts/python.exe -m ruff check calculator.py",
+  "exit_code": 1,
+  "output": "B015 Pointless comparison. Did you mean to assign a value? Otherwise, prepend `assert` or remove it.\n  --> calculator.py:13:5\n   |\n12 | def add_to_total(total, value):\n13 |     total == add(total, value)\n   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^\n14 |     return total\n   |\n\nFound 1 error.\n",
+  "calculator": "def add(a, b):\n    return a + b\n\n\ndef record(value, history=None):\n    if history is None:\n        history = []\n    history.append(value)\n    return history\n\n\ndef add_to_total(total, value):\n    total == add(total, value)\n    return total\n"
+}

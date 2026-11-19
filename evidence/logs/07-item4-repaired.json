@@ -1,0 +1,7 @@
+{
+  "time": "2026-11-19T05:28:34.635509+00:00",
+  "command": ".venv/Scripts/python.exe -m ruff check calculator.py",
+  "exit_code": 0,
+  "output": "All checks passed!\n",
+  "calculator": "\n\ndef add(a, b):\n    return a + b\n\n\ndef record(value, history=None):\n    if history is None:\n        history = []\n    history.append(value)\n    return history\n"
+}

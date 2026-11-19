@@ -1,0 +1,7 @@
+> .venv/Scripts/python.exe -c "from calculator import add_to_total; print('Starting total: 12; new value: 8'); print('Expected: 20'); print('Actual:', add_to_total(12, 8))"
+
+Starting total: 12; new value: 8
+Expected: 20
+Actual: 12
+
+Exit code: 0

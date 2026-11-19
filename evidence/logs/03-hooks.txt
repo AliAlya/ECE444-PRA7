@@ -1,0 +1,10 @@
+> .venv/Scripts/python.exe -m pre_commit run --all-files
+
+[INFO] Initializing environment for https://github.com/astral-sh/ruff-pre-commit.
+[INFO] Installing environment for https://github.com/astral-sh/ruff-pre-commit.
+[INFO] Once installed this environment will be reused.
+[INFO] This may take a few minutes...
+ruff check...............................................................Passed
+ruff format..............................................................Passed
+
+Exit code: 0

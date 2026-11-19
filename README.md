@@ -6,6 +6,38 @@ This practical uses a small calculator to follow a mistake through a manual Ruff
 
 Based on the [PRA7 handout](https://shuruizuoft.github.io/ECE444-Fall2026/pras/static-analysis-ci.html) and forked from the [course starter](https://github.com/shuruizUofT/ece444-pra7-starter). The supplied Ruff configuration and tool versions are preserved.
 
+## Start here: what I run, show, and submit
+
+**What this project is:** a Python calculator module, tests, and automated code checks. The practical is about finding and repairing mistakes. There is no server to start. Running `calculator.py` on its own defines its functions and normally prints nothing.
+
+**Where my finished work is:** the `demonstrate-ruff` branch in [PR #1](https://github.com/AliAlya/ECE444-PRA7/pull/1). The PR is open for review. `main` contains the earlier working baseline, so I should use `demonstrate-ruff` when showing the final code and six tests.
+
+**My quick run in PowerShell:**
+
+```powershell
+Set-Location -LiteralPath 'C:\Users\Ali A\Downloads\ECE444\PRA7'
+git branch --show-current
+.\.venv\Scripts\python.exe -m pytest -q
+.\.venv\Scripts\python.exe -m ruff check .
+.\.venv\Scripts\python.exe -m ruff format --check .
+```
+
+The branch should be `demonstrate-ruff`. Expect **6 passed**, **All checks passed!**, and a message that the files are already formatted. If I am on another branch and have no uncommitted work, `git switch demonstrate-ruff` selects the final version.
+
+**What I should be ready to show the TA:**
+
+1. The calculator and the six tests, with the checks above passing.
+2. My extra **B015** example: `==` left the total at 12; changing it to `=` made adding 8 return 20. Explain the code, finding, and repair.
+3. The F401/F841/B006 findings, what Ruff fixed automatically, and why I repaired the rest manually.
+4. The deliberate **F821** defect: the two starter tests passed while lint and the normal commit failed.
+5. The failed GitHub run, the active ruleset requiring all three checks, and the **same repaired PR** with passing checks.
+
+The handout explicitly asks me to be prepared for an oral test on my additional violation. The sequence above is my preparation guide for explaining the whole practical; it is not a separate slide-deck requirement.
+
+**What I submit:** one PDF through **Quercus**, containing the ten numbered report items, screenshots, and required links. The current PDF in `output/pdf/` is a **draft**: the code and GitHub work are complete, but the required screenshots still need to be inserted. I then rebuild and review the PDF before uploading. A GitHub push does not submit it to Quercus.
+
+For the details, use [the TA walkthrough](#my-walkthrough-for-the-ta), [Windows commands](#run-it-on-my-windows-computer), [the ten report items](#what-goes-in-the-pdf-and-how-i-finish-it), and [questions with answers](#questions-i-might-get-from-the-ta).
+
 ## Verified result
 
 | Stage | Result and evidence |
@@ -117,7 +149,13 @@ The repaired `broken_total` calls `add_to_total(12, 8)`. Its name remains the on
 
 ## Run it on my Windows computer
 
-From the PRA7 folder, use the environment's executable directly. Activation and PowerShell execution-policy changes are unnecessary.
+Open the PRA7 folder in VS Code and use its PowerShell terminal, or open a regular PowerShell window. First enter the project folder:
+
+```powershell
+Set-Location -LiteralPath 'C:\Users\Ali A\Downloads\ECE444\PRA7'
+```
+
+Use the environment's executable directly. Activation and PowerShell execution-policy changes are unnecessary.
 
 ```powershell
 .\.venv\Scripts\python.exe --version
@@ -146,6 +184,120 @@ To apply formatting while editing:
 ```
 
 If a hook modifies a file, review the diff, stage it again, and retry the commit.
+
+### See the calculator functions actually run
+
+This command calls the functions and prints their results:
+
+```powershell
+.\.venv\Scripts\python.exe -c "from calculator import add, add_to_total, broken_total, record; print('2 + 3 =', add(2, 3)); print('12 + 8 =', add_to_total(12, 8)); print('Separate histories:', record(12), record(8)); history = []; record(12, history); record(8, history); print('Shared history supplied by caller:', history); print('Repaired total:', broken_total())"
+```
+
+Expected output:
+
+```text
+2 + 3 = 5
+12 + 8 = 20
+Separate histories: [12] [8]
+Shared history supplied by caller: [12, 8]
+Repaired total: 20
+```
+
+To show the individual tests and their names:
+
+```powershell
+.\.venv\Scripts\python.exe -m pytest -v
+```
+
+### If a command does not work
+
+| What I see | What I check |
+| --- | --- |
+| `.venv\Scripts\python.exe` cannot be found | Run from the PRA7 folder. If the environment is missing, use the recreation commands above. |
+| `No module named pytest`, `ruff`, or `pre_commit` | Use this project's `.venv` executable and install `requirements-dev.txt` into that environment. |
+| Only 2 tests run | Check the branch. The earlier main-branch baseline has the two starter tests; the completed PR branch has six. |
+| A replay reports lint errors or a rejected commit | That is expected for the failing stages. The helper checks that the failure happened and keeps it in a separate scratch folder. |
+| A hook reformats a file | Review the change, stage it again, and retry. A modifying hook intentionally asks for another pass. |
+
+## My walkthrough for the TA
+
+Before the session, have the final branch open locally, the report available, and these browser tabs ready: [PR #1](https://github.com/AliAlya/ECE444-PRA7/pull/1), [the failed run](https://github.com/AliAlya/ECE444-PRA7/actions/runs/44466075166), and [the ruleset](https://github.com/AliAlya/ECE444-PRA7/rules/27612614). The historical failed run stays available even though the PR is now repaired.
+
+### 1. Explain the purpose and show the final checks
+
+My opening explanation can be:
+
+> I used Ruff to find source-code problems, pre-commit to catch them before a commit, and GitHub Actions to check the pushed changes independently. I deliberately showed tests passing while lint failed, then repaired the code and added tests for the missed behavior.
+
+Run pytest, Ruff lint, and the formatting check from the quick-run block. Open `calculator.py` and `test_calculator.py` so I can connect each result to the code. Be clear that the final six-test suite was added after the original two-test failure demonstrations.
+
+### 2. Explain the original findings and repairs
+
+Use report items 2-4 or the saved evidence to show F401, F841, and B006. Explain that the safe fixer removed `os`, I removed the unused assignment, and `None` prevents unrelated `record` calls from sharing a default list.
+
+If asked to reproduce those stages live, run the isolated helpers one at a time:
+
+```powershell
+.\.venv\Scripts\python.exe tools/replay_evidence.py item2
+.\.venv\Scripts\python.exe tools/replay_evidence.py item3
+.\.venv\Scripts\python.exe tools/replay_evidence.py item4
+```
+
+These run the real commands using the saved source states in fresh scratch folders. They leave my final calculator and PR branch intact. Say explicitly that these are replays; the original timestamped outputs are in `evidence/logs/`.
+
+### 3. Spend time on my additional B015 rule
+
+Run these separately so the before and after are easy to compare:
+
+```powershell
+.\.venv\Scripts\python.exe tools/replay_evidence.py item5-before
+.\.venv\Scripts\python.exe tools/replay_evidence.py item5-after
+```
+
+Point to the discarded comparison, the B015 message, and the actual result of 12. Then point to the assignment, passing lint, and the corrected result of 20. Explain why assignment matches the intended operation. This is the additional rule I must be ready to discuss orally.
+
+### 4. Show the local commit being rejected
+
+```powershell
+.\.venv\Scripts\python.exe tools/replay_evidence.py item7
+```
+
+The helper creates an isolated local Git repository, installs the hook, and attempts the defective commit. Show `missing_total`, F821, **2 passing tests**, and the rejected commit. The formatting hook still passes. The rejected commit is the expected demonstration result.
+
+Explain that the original tests never called `broken_total`. The real hosted failure was committed once by skipping only `ruff-check`; formatting still ran and the temporary `SKIP` setting was removed afterward.
+
+### 5. Connect the local result to GitHub enforcement
+
+Open the [failed lint job](https://github.com/AliAlya/ECE444-PRA7/actions/runs/44466075166/job/135364052312) and expand the Ruff step. Identify `calculator.py:18:12` and F821. Show that the failed run had successful format and tests jobs.
+
+Then show the active `require-ci-on-main` ruleset: default branch target, required PR, zero approvals, required `lint`/`format`/`tests`, and an empty bypass list. Explain that the saved failed PR state was `BLOCKED`; a red check becomes a merge requirement through this ruleset.
+
+Finish on [the same repaired PR](https://github.com/AliAlya/ECE444-PRA7/pull/1), with all three checks passing. Show the repaired function and its new regression test. Keep the PR open for review unless the TA asks for a merge; merging is not explicitly required by this handout.
+
+## What goes in the PDF and how I finish it
+
+| Report item | Required content |
+| --- | --- |
+| 1 | My fork's repository URL; no setup screenshot is required. |
+| 2 | Screenshot of the original lint command and all F401, F841, B006 findings. |
+| 3 | Screenshot of the safe auto-fix command and its output. |
+| 4 | Repaired calculator code and screenshot of passing lint. |
+| 5 | My B015 code and lint output before and after repair, with a brief explanation. |
+| 6 | Screenshot of the passing baseline's three jobs and the specific Actions run URL. |
+| 7 | Broken function plus terminal screenshots showing F821, passing tests, and the rejected commit. |
+| 8 | Saved ruleset screenshots showing its name, Active status, target branch, and three required checks; include its URL if available. |
+| 9 | Failed PR/check summary and expanded failed lint log showing F821 with the file/line reference. |
+| 10 | The same repaired PR's URL and screenshot showing all three jobs passing. |
+
+The [capture checklist](evidence/CAPTURE_CHECKLIST.md) has the exact image filenames, direct GitHub links, and replay commands. Save the screenshots in `evidence/screenshots/`, then rebuild:
+
+```powershell
+.\.report-venv\Scripts\python.exe tools/build_report.py
+```
+
+The builder updates `REPORT.md` and writes the PDF to `output/pdf/`. While mandatory screenshot groups are missing, it produces `Ali_Alyaseri_PRA7_Report_DRAFT.pdf`. When all required groups are supplied, it produces `Ali_Alyaseri_PRA7_Report.pdf`. The presence of an image does not establish that it shows the right content: I still need to open the PDF, check legibility and completeness, and upload the final version through Quercus.
+
+The PDF in `output/pdf/`, the virtual environments, and scratch replays are local files excluded from Git. The code, report source, evidence records, and this README are on the PR branch. Check Quercus for the deadline and any additional submission-field instructions; the handout does not provide a deadline or required PDF filename.
 
 ## How the checks fit together
 

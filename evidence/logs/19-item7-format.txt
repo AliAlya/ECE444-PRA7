@@ -1,0 +1,5 @@
+> .venv/Scripts/python.exe -m ruff format calculator.py
+
+1 file left unchanged
+
+Exit code: 0

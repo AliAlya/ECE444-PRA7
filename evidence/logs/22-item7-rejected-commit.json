@@ -1,0 +1,7 @@
+{
+  "time": "2026-11-19T05:33:52.015159+00:00",
+  "command": "git commit -m \"Show that the hook catches an undefined total\"",
+  "exit_code": 1,
+  "output": "ruff check...............................................................Failed\n- hook id: ruff-check\n- exit code: 1\n\nF821 Undefined name `missing_total`\n  --> calculator.py:18:12\n   |\n17 | def broken_total():\n18 |     return missing_total\n   |            ^^^^^^^^^^^^^\n\nFound 1 error.\n\nruff format..............................................................Passed\n",
+  "calculator": "def add(a, b):\n    return a + b\n\n\ndef record(value, history=None):\n    if history is None:\n        history = []\n    history.append(value)\n    return history\n\n\ndef add_to_total(total, value):\n    total = add(total, value)\n    return total\n\n\ndef broken_total():\n    return missing_total\n"
+}

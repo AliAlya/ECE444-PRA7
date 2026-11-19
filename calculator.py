@@ -12,3 +12,7 @@ def record(value, history=None):
 def add_to_total(total, value):
     total = add(total, value)
     return total
+
+
+def broken_total():
+    return missing_total

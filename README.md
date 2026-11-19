@@ -6,6 +6,19 @@ This practical uses a small calculator to follow a mistake through a manual Ruff
 
 Based on the [PRA7 handout](https://shuruizuoft.github.io/ECE444-Fall2026/pras/static-analysis-ci.html) and forked from the [course starter](https://github.com/shuruizUofT/ece444-pra7-starter). The supplied Ruff configuration and tool versions are preserved.
 
+## Verified result
+
+| Stage | Result and evidence |
+| --- | --- |
+| Working baseline | All three jobs passed: [baseline run](https://github.com/AliAlya/ECE444-PRA7/actions/runs/44465783555). |
+| Intentional defect | F821 failed lint; formatting and the two starter tests passed: [failed run](https://github.com/AliAlya/ECE444-PRA7/actions/runs/44466075166). GitHub reported the PR merge state as `BLOCKED`. |
+| Repair | All three jobs passed: [repaired run](https://github.com/AliAlya/ECE444-PRA7/actions/runs/44466570039). The same PR became `CLEAN`. |
+| Branch protection | [require-ci-on-main](https://github.com/AliAlya/ECE444-PRA7/rules/27612614) is active; its bypass list is empty and all three checks are required. |
+| Pull request | [PR #1](https://github.com/AliAlya/ECE444-PRA7/pull/1), from my `demonstrate-ruff` branch into my own fork's `main`. Left open so the TA can review the demonstration and repaired checks together. |
+| Local final code | Ruff lint and formatting pass. **6 tests pass**, including four regression tests added after the failure demonstration. |
+
+**Submission status:** the code and GitHub demonstration are complete. The [numbered report](REPORT.md) and generated PDF preserve real command transcripts and GitHub API records. Required terminal/browser screenshots still need to be inserted; browser automation stopped because it could not reliably establish the current URL. The PDF is marked as a draft until those images are supplied. [Capture checklist](evidence/CAPTURE_CHECKLIST.md).
+
 ## Activities and what I did
 
 | Activity | Work and purpose |
@@ -74,6 +87,33 @@ def broken_total():
 ```
 
 Importing this function does not execute its body. The starter tests call `add`, so they pass without reaching `missing_total`. Ruff inspects the source and reports F821 without needing a test to call the function. Calling the defective function would raise `NameError`.
+
+## What the final tests cover
+
+The original two tests check positive and negative addition. I left those tests unchanged during the failure demonstration, so the report genuinely shows **2 passing tests alongside F821**. After recording that result, I added four regression tests:
+
+- Two independent `record` calls must get separate lists. This catches the original B006 behavior.
+- An explicitly supplied empty list must be the same object returned and updated. This catches an incorrect `if not history` repair.
+- Adding 8 to an existing total of 12 must return 20. This catches the B015 mistake.
+- Calling the repaired `broken_total` must return 20. The old version would raise `NameError`.
+
+The repaired `broken_total` calls `add_to_total(12, 8)`. Its name remains the one required by the handout so the before/after history is easy to follow. The final suite has **6 tests**; the extra four were added after the intentional failure was captured.
+
+## Files I should know
+
+| File | Purpose |
+| --- | --- |
+| `calculator.py` | Addition, recording history, updating a total, and the repaired demonstration function. |
+| `test_calculator.py` | Original addition tests and the four regression tests described above. |
+| `pyproject.toml` | Shared Ruff rules, target Python version, and formatting settings. |
+| `.pre-commit-config.yaml` | Pinned Ruff lint/fix and formatting hooks. |
+| `.github/workflows/ci.yml` | Three separate GitHub Actions jobs, triggered by pushes to main and pull requests. |
+| `requirements-dev.txt` | Exact assignment versions of Ruff, pre-commit, and pytest. |
+| `lab-assets/` | Original templates and flawed sample, kept for reference. |
+| `evidence/logs/` | Saved command outputs, source snapshots, and GitHub records for the report. |
+| `REPORT.md` | The ten numbered report items and evidence links. |
+| `tools/build_report.py` | Rebuilds the local PDF, including any supplied screenshots. |
+| `tools/replay_evidence.py` | Reruns local evidence stages in separate scratch folders for screenshots, without changing or pushing the completed work. |
 
 ## Run it on my Windows computer
 

@@ -1,0 +1,14 @@
+> .venv/Scripts/python.exe -m ruff format --check .
+
+unformatted: File would be reformatted
+   --> REPORT.md:153:1
+    |
+152 | ```python
+    -
+    -
+153 | def add(a, b):
+    |
+
+1 file would be reformatted, 7 files already formatted
+
+Exit code: 1

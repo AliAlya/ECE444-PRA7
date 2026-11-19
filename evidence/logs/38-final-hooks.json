@@ -1,0 +1,7 @@
+{
+  "time": "2026-11-19T05:45:58.462784+00:00",
+  "command": ".venv/Scripts/python.exe -m pre_commit run --all-files",
+  "exit_code": 1,
+  "output": "ruff check...............................................................Passed\nruff format..............................................................Failed\n- hook id: ruff-format\n- files were modified by this hook\n\n1 file reformatted, 7 files left unchanged\n\n",
+  "calculator": "def add(a, b):\n    return a + b\n\n\ndef record(value, history=None):\n    if history is None:\n        history = []\n    history.append(value)\n    return history\n\n\ndef add_to_total(total, value):\n    total = add(total, value)\n    return total\n\n\ndef broken_total():\n    return add_to_total(12, 8)\n"
+}

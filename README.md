@@ -34,7 +34,7 @@ The branch should be `demonstrate-ruff`. Expect **6 passed**, **All checks passe
 
 The handout explicitly asks me to be prepared for an oral test on my additional violation. The sequence above is my preparation guide for explaining the whole practical; it is not a separate slide-deck requirement.
 
-**What I submit:** one PDF through **Quercus**, containing the ten numbered report items, screenshots, and required links. The current PDF in `output/pdf/` is a **draft**: the code and GitHub work are complete, but the required screenshots still need to be inserted. I then rebuild and review the PDF before uploading. A GitHub push does not submit it to Quercus.
+**What I submit:** one PDF through **Quercus**, containing the ten numbered report items, screenshots, and required links. Screenshots have been added to `output/pdf/Ali_Alyaseri_PRA7_Report.pdf`. Review the final PDF and its capture-provenance note before uploading. A GitHub push does not submit it to Quercus.
 
 For the details, use [the TA walkthrough](#my-walkthrough-for-the-ta), [Windows commands](#run-it-on-my-windows-computer), [the ten report items](#what-goes-in-the-pdf-and-how-i-finish-it), and [questions with answers](#questions-i-might-get-from-the-ta).
 
@@ -49,7 +49,7 @@ For the details, use [the TA walkthrough](#my-walkthrough-for-the-ta), [Windows 
 | Pull request | [PR #1](https://github.com/AliAlya/ECE444-PRA7/pull/1), from my `demonstrate-ruff` branch into my own fork's `main`. Left open so the TA can review the demonstration and repaired checks together. |
 | Local final code | Ruff lint and formatting pass. **6 tests pass**, including four regression tests added after the failure demonstration. |
 
-**Submission status:** the code and GitHub demonstration are complete. The [numbered report](REPORT.md) and generated PDF preserve real command transcripts and GitHub API records. Required terminal/browser screenshots still need to be inserted; browser automation stopped because it could not reliably establish the current URL. The PDF is marked as a draft until those images are supplied. [Capture checklist](evidence/CAPTURE_CHECKLIST.md).
+**Submission status:** the code, GitHub demonstration, and report images are complete. The [numbered report](REPORT.md) includes 14 screenshots. GitHub summaries and ruleset pages were captured directly; local code/output and the failed CI log were captured from browser views of the original saved records. Those images are labeled as saved records, not live terminal or signed-in log-panel captures. See [screenshot provenance](evidence/screenshots/README.md). Quercus upload and the TA explanation remain personal steps.
 
 ## Activities and what I did
 
@@ -289,7 +289,7 @@ Finish on [the same repaired PR](https://github.com/AliAlya/ECE444-PRA7/pull/1),
 | 9 | Failed PR/check summary and expanded failed lint log showing F821 with the file/line reference. |
 | 10 | The same repaired PR's URL and screenshot showing all three jobs passing. |
 
-The [capture checklist](evidence/CAPTURE_CHECKLIST.md) has the exact image filenames, direct GitHub links, and replay commands. Save the screenshots in `evidence/screenshots/`, then rebuild:
+The screenshots are saved in `evidence/screenshots/`. The [capture checklist](evidence/CAPTURE_CHECKLIST.md) retains the exact image filenames, direct GitHub links, and replay commands if I want to replace a saved-output capture with a live terminal capture. After changing any images, rebuild:
 
 ```powershell
 .\.report-venv\Scripts\python.exe tools/build_report.py

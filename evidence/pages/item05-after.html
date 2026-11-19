@@ -1,0 +1,16 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Item 5 - B015 after repair</title><style>body{margin:0;background:#fff;color:#172b3b;font:16px Arial,sans-serif}main{box-sizing:border-box;width:1080px;padding:22px 28px 24px}h1{font-size:25px;margin:8px 0}h2{font:600 16px Arial;margin:16px 0 7px;overflow-wrap:anywhere}p{margin:7px 0;line-height:1.3}.tag{color:#27627b;font-size:14px;font-weight:bold}.note,.sources{font-size:13px;color:#53616b}.sources{overflow-wrap:anywhere}pre{font:16px/18px Consolas,monospace;background:#f4f7f9;border-left:3px solid #6a94a8;padding:10px 14px;margin:5px 0;white-space:pre-wrap;overflow-wrap:anywhere}.exit{font-size:14px;font-weight:bold}</style></head><body><main><div class="tag">Ali Alyaseri | ECE444 PRA7</div><h1>Item 5 - B015 after repair</h1><p class="note">Screenshot of original saved execution output, displayed in the browser. This is a preserved record, not a live terminal.</p><p class="sources">Source: 12-item5-b015-after.json | 13-item5-correct-result.json</p><h2>calculator.py at the recorded stage</h2><pre>def add(a, b):
+    return a + b
+
+
+def record(value, history=None):
+    if history is None:
+        history = []
+    history.append(value)
+    return history
+
+
+def add_to_total(total, value):
+    total = add(total, value)
+    return total</pre><h2>.venv/Scripts/python.exe -m ruff check calculator.py</h2><pre>All checks passed!</pre><p class="exit">Recorded exit code: 0</p><h2>.venv/Scripts/python.exe -c &quot;from calculator import add_to_total; print(&#x27;Starting total: 12; new value: 8&#x27;); print(&#x27;Expected: 20&#x27;); print(&#x27;Actual:&#x27;, add_to_total(12, 8))&quot;</h2><pre>Starting total: 12; new value: 8
+Expected: 20
+Actual: 20</pre><p class="exit">Recorded exit code: 0</p></main></body></html>

@@ -2,7 +2,7 @@
 
 November 19, 2026
 
-**DRAFT - required screenshots still need to be inserted. All command output and GitHub results below come from saved execution/API records; they are transcripts and structured records, not terminal or browser screenshots. See evidence/CAPTURE_CHECKLIST.md before submitting.**
+**Screenshot provenance:** GitHub summaries and ruleset pages were captured directly. Local code/output and the CI error-log image are screenshots of browser views of the original saved records, rather than a live terminal or signed-in GitHub log panel. Their source filenames are shown in the images. Cropping removes unrelated browser tabs and empty space; the recorded results are unchanged.
 
 ## 1. My fork and the practical
 
@@ -83,7 +83,7 @@ Exit code: 1
 
 [Additional source: 05-item2-tests-still-pass.json](evidence/logs/05-item2-tests-still-pass.json)
 
-**Required screenshot pending:** `evidence/screenshots/item02-lint-before.png`.
+![item02-lint-before](evidence/screenshots/item02-lint-before.png)
 
 ## 3. What the safe automatic fix changed
 
@@ -139,7 +139,7 @@ Exit code: 1
 
 [Source record](evidence/logs/06-item3-safe-fix.json)
 
-**Required screenshot pending:** `evidence/screenshots/item03-safe-fix.png`.
+![item03-safe-fix](evidence/screenshots/item03-safe-fix.png)
 
 ## 4. My manual repair and formatting check
 
@@ -185,7 +185,7 @@ Exit code: 0
 
 [Source record](evidence/logs/09-formatting-demo.json)
 
-**Required screenshot pending:** `evidence/screenshots/item04-repaired.png`.
+![item04-repaired](evidence/screenshots/item04-repaired.png)
 
 ## 5. My additional violation: B015
 
@@ -246,9 +246,9 @@ Exit code: 0
 
 [Additional source: 13-item5-correct-result.json](evidence/logs/13-item5-correct-result.json)
 
-**Required screenshot pending:** `evidence/screenshots/item05-before.png`.
+![item05-before](evidence/screenshots/item05-before.png)
 
-**Required screenshot pending:** `evidence/screenshots/item05-after.png`.
+![item05-after](evidence/screenshots/item05-after.png)
 
 ## 6. The working GitHub Actions baseline
 
@@ -264,7 +264,7 @@ Each job checks out the repository, configures Python, and installs dependencies
 | lint | success | 2026-11-19T05:32:17Z |
 | tests | success | 2026-11-19T05:32:18Z |
 
-**Required screenshot pending:** `evidence/screenshots/item06-baseline-ci.png`.
+![item06-baseline-ci](evidence/screenshots/item06-baseline-ci.png)
 
 ## 7. F821 and the rejected commit
 
@@ -338,11 +338,11 @@ Exit code: 1
 
 [Additional source: 23-demonstration-skip.json](evidence/logs/23-demonstration-skip.json)
 
-**Required screenshot pending:** `evidence/screenshots/item07-code.png`.
+![item07-code](evidence/screenshots/item07-code.png)
 
-**Required screenshot pending:** `evidence/screenshots/item07-f821-tests.png`.
+![item07-f821-tests](evidence/screenshots/item07-f821-tests.png)
 
-**Required screenshot pending:** `evidence/screenshots/item07-rejected-commit.png`.
+![item07-rejected-commit](evidence/screenshots/item07-rejected-commit.png)
 
 ## 8. Requiring successful checks on main
 
@@ -367,7 +367,9 @@ The bypass list is empty. Requiring the branch to be up to date is disabled, and
 
 [Additional source: 24-main-active-rules.json](evidence/logs/24-main-active-rules.json)
 
-**Required screenshot pending:** `evidence/screenshots/item08-ruleset.png`.
+![item08-ruleset](evidence/screenshots/item08-ruleset.png)
+
+![item08-ruleset-2](evidence/screenshots/item08-ruleset-2.png)
 
 ## 9. CI catches the failing pull request
 
@@ -397,9 +399,9 @@ The failed job's expanded Ruff log identifies the exact undefined name and file/
 
 [Additional source: 27-item9-f821-job.txt](evidence/logs/27-item9-f821-job.txt)
 
-**Required screenshot pending:** `evidence/screenshots/item09-failed-summary.png`.
+![item09-failed-summary](evidence/screenshots/item09-failed-summary.png)
 
-**Required screenshot pending:** `evidence/screenshots/item09-f821-log.png`.
+![item09-f821-log](evidence/screenshots/item09-f821-log.png)
 
 ## 10. Repairing the same PR
 
@@ -438,4 +440,4 @@ Exit code: 0
 
 [Additional source: 34-item10-repaired-pr.json](evidence/logs/34-item10-repaired-pr.json)
 
-**Required screenshot pending:** `evidence/screenshots/item10-repaired-pr.png`.
+![item10-repaired-pr](evidence/screenshots/item10-repaired-pr.png)

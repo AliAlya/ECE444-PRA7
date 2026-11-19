@@ -1,0 +1,9 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Item 7 - Lint fails while two tests pass</title><style>body{margin:0;background:#fff;color:#172b3b;font:16px Arial,sans-serif}main{box-sizing:border-box;width:1080px;padding:22px 28px 24px}h1{font-size:25px;margin:8px 0}h2{font:600 16px Arial;margin:16px 0 7px;overflow-wrap:anywhere}p{margin:7px 0;line-height:1.3}.tag{color:#27627b;font-size:14px;font-weight:bold}.note,.sources{font-size:13px;color:#53616b}.sources{overflow-wrap:anywhere}pre{font:16px/18px Consolas,monospace;background:#f4f7f9;border-left:3px solid #6a94a8;padding:10px 14px;margin:5px 0;white-space:pre-wrap;overflow-wrap:anywhere}.exit{font-size:14px;font-weight:bold}</style></head><body><main><div class="tag">Ali Alyaseri | ECE444 PRA7</div><h1>Item 7 - Lint fails while two tests pass</h1><p class="note">Screenshot of original saved execution output, displayed in the browser. This is a preserved record, not a live terminal.</p><p class="sources">Source: 20-item7-f821.json | 21-item7-tests.json</p><h2>.venv/Scripts/python.exe -m ruff check .</h2><pre>F821 Undefined name `missing_total`
+  --&gt; calculator.py:18:12
+   |
+17 | def broken_total():
+18 |     return missing_total
+   |            ^^^^^^^^^^^^^
+
+Found 1 error.</pre><p class="exit">Recorded exit code: 1</p><h2>.venv/Scripts/python.exe -m pytest -q</h2><pre>..                                                                       [100%]
+2 passed in 0.01s</pre><p class="exit">Recorded exit code: 0</p></main></body></html>

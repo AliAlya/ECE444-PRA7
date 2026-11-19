@@ -1,6 +1,8 @@
 # PRA7 screenshot checklist
 
-The actual activities, outputs, CI runs, and ruleset are saved. Screenshots remain necessary because the handout explicitly requests them. Browser automation ended when it could not reliably identify the current URL, so none of the saved text records is being presented as a genuine terminal or GitHub screenshot.
+**Capture status: 14 screenshots added, covering all 13 required image groups.** GitHub summaries and ruleset pages were captured directly. Local code/output and the CI failure log are genuine browser screenshots of views of the original saved records; they are labeled as preserved output, not live terminal or signed-in GitHub log-panel captures. See [provenance](screenshots/README.md).
+
+The table below remains useful for reviewing the images or replacing saved-output captures with fresh terminal captures. The original source/output records are unchanged.
 
 Put PNG screenshots in `evidence/screenshots/` with the filenames below. The report builder will include each supplied image automatically. Use readable captures and multiple images where needed. The raw `.txt` and `.json` records remain in `evidence/logs/`.
 

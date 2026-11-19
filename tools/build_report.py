@@ -32,6 +32,13 @@ FAILED = f"{REPO}/actions/runs/44466075166"
 REPAIRED = f"{REPO}/actions/runs/44466570039"
 PR = f"{REPO}/pull/1"
 RULESET = f"{REPO}/rules/27612614"
+CAPTURE_NOTE = (
+    "GitHub summaries and ruleset pages were captured directly. Local code/output "
+    "and the CI error-log image are screenshots of browser views of the original "
+    "saved records, rather than a live terminal or signed-in GitHub log panel. "
+    "Their source filenames are shown in the images. Cropping removes unrelated "
+    "browser tabs and empty space; the recorded results are unchanged."
+)
 
 
 def record(name):
@@ -309,10 +316,14 @@ def build():
     )
     story = []
     markdown = ["# ECE444 PRA7 - Ali Alyaseri", "", "November 19, 2026", ""]
+    markdown += ["**Screenshot provenance:** " + CAPTURE_NOTE, ""]
     if draft:
         note = "DRAFT - required screenshots still need to be inserted. All command output and GitHub results below come from saved execution/API records; they are transcripts and structured records, not terminal or browser screenshots. See evidence/CAPTURE_CHECKLIST.md before submitting."
         markdown += [f"**{note}**", ""]
     for index, section in enumerate(SECTIONS, 1):
+        captured = bool(section.get("shots")) and all(
+            screenshot_files(name) for name in section.get("shots", [])
+        )
         if index > 1:
             story.append(PageBreak())
         story += [
@@ -362,13 +373,16 @@ def build():
                 paragraph(
                     "The numbered items follow the handout. Raw command records contain the actual arguments, output, exit status, timestamp, and calculator source. GitHub records preserve the baseline, failed, and repaired runs. No failed state was recreated by editing a screenshot."
                 ),
+                paragraph(CAPTURE_NOTE),
             ]
         for label, name in section.get("code", []):
             value = record(name)["calculator"].strip("\n")
-            story += [paragraph(label, "ReportSub"), code_block(value)]
+            if not captured:
+                story += [paragraph(label, "ReportSub"), code_block(value)]
             markdown += [f"### {label}", "", "```python", value.rstrip(), "```", ""]
         for label, value in section.get("snippets", []):
-            story += [paragraph(label, "ReportSub"), code_block(value)]
+            if not captured:
+                story += [paragraph(label, "ReportSub"), code_block(value)]
             markdown += [f"### {label}", "", "```python", value, "```", ""]
         if section.get("jobs"):
             value = record(section["jobs"])
@@ -376,11 +390,12 @@ def build():
                 [job["name"], job["conclusion"], job["completedAt"]]
                 for job in value["jobs"]
             ]
-            story += [
-                paragraph("Saved GitHub job results", "ReportSub"),
-                table(rows, [100, 120, 296]),
-                paragraph(f"Source: {section['jobs']}.json", "ReportSmall"),
-            ]
+            if not captured:
+                story += [
+                    paragraph("Saved GitHub job results", "ReportSub"),
+                    table(rows, [100, 120, 296]),
+                ]
+            story.append(paragraph(f"Source: {section['jobs']}.json", "ReportSmall"))
             markdown += (
                 ["| Job | Conclusion | Completed (UTC) |", "| --- | --- | --- |"]
                 + [f"| {' | '.join(row)} |" for row in rows[1:]]
@@ -399,7 +414,8 @@ def build():
                 ["Require up-to-date branch", "No"],
                 ["Skip checks on creation", "No"],
             ]
-            story += [table(rows, [185, 331])]
+            if not captured:
+                story += [table(rows, [185, 331])]
             markdown += (
                 ["| Setting | Saved value |", "| --- | --- |"]
                 + [f"| {' | '.join(row)} |" for row in rows[1:]]
@@ -407,14 +423,17 @@ def build():
             )
         for label, name in section.get("logs", []):
             value = transcript(name)
-            story += [
-                paragraph(f"{label} - saved command transcript", "ReportSub"),
-                code_block(value),
+            if not captured:
+                story += [
+                    paragraph(f"{label} - saved command transcript", "ReportSub"),
+                    code_block(value),
+                ]
+            story.append(
                 Paragraph(
                     f'<link href="{escape(source_url(name + ".json"))}" color="#146b8c">Source record: {escape(name)}.json</link>',
                     STYLES["ReportSmall"],
-                ),
-            ]
+                )
+            )
             markdown += [
                 f"### {label} (saved command transcript)",
                 "",
@@ -432,10 +451,11 @@ def build():
                 for line in lines
                 if "##[group]Run python" in line or "##[error]" in line
             )
-            story += [
-                paragraph("Excerpt from the actual failed job log", "ReportSub"),
-                code_block(error),
-            ]
+            if not captured:
+                story += [
+                    paragraph("Excerpt from the actual failed job log", "ReportSub"),
+                    code_block(error),
+                ]
             markdown += ["```text", error, "```", ""]
         for filename in section.get("sources", []):
             story.append(
@@ -468,11 +488,18 @@ def build():
             for file in files:
                 with PillowImage.open(file) as image:
                     width, height = image.size
-                scale = min(516 / width, 590 / height)
+                display_width = 480 if prefix == "item02-lint-before" else 516
+                scale = min(display_width / width, 590 / height)
+                direct = file.name.startswith(
+                    ("item06", "item08", "item09-failed", "item10")
+                )
+                kind = (
+                    "Direct GitHub capture" if direct else "Saved source/output capture"
+                )
                 story.append(
                     KeepTogether(
                         [
-                            paragraph(file.name, "ReportSmall"),
+                            paragraph(f"{kind}: {file.name}", "ReportSmall"),
                             Image(
                                 str(file), width=width * scale, height=height * scale
                             ),
